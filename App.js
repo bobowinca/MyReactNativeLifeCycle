@@ -3,8 +3,14 @@ import React, {Component} from 'react';
 import {Text, View} from 'react-native';
 
 class CustomComponent extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
+    this.state = {
+      isFetching: false,
+      users: [],
+      counter: 0,
+    };
+
     console.log('Constructor Called.');
   }
 
@@ -12,7 +18,19 @@ class CustomComponent extends Component {
     console.log('componentWillMount called.');
   }
 
+  increase = () => {
+    const current = this.state.counter;
+    this.setState({coounter: current + 1});
+  };
+
+  // fetchSomethingAPI = () => {
+  //   const current = this.state.counter;
+  //   this.setState({coounter: current + 1});
+  // };
+
   componentDidMount() {
+    this.increase();
+    this.timer = setInterval(() => this.increase(), 3000);
     console.log('componentDidMount called.');
   }
 
