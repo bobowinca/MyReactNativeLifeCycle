@@ -28,10 +28,10 @@ class CustomComponent extends Component {
   };
 
   componentDidMount() {
-    this.increase();
-    this.timer = setInterval(() => this.increase(), 3000);
+    // this.increase();
+    // this.timer = setInterval(() => this.increase(), 3000);
 
-    // this.fetchSomethingAPI();
+    this.fetchSomethingAPI();
     console.log('componentDidMount called.');
   }
 
@@ -54,7 +54,8 @@ class CustomComponent extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    this.timer && clearInterval(this.timer);
+    this.timer && clearTimeout(this.timer);
     this.timer = null;
     console.log('componentWillUnmount called.');
   }
