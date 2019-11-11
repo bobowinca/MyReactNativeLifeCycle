@@ -1,12 +1,12 @@
 /*Example of Reac Native Life Cycle*/
 import React, {Component} from 'react';
-import {Text, View} from 'react-native';
+import {Text, View, ActivityIndicator} from 'react-native';
 
 class CustomComponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isFetching: false,
+      isFetching: true,
       users: [],
       counter: 0,
     };
@@ -24,14 +24,18 @@ class CustomComponent extends Component {
   };
 
   fetchSomethingAPI = () => {
-    this.timer = setTimeout(() => this.increase(), 3000);
+    this.timer = setTimeout(
+      () => this.setState({isFetching: false}, this.increase()),
+      5000,
+    );
   };
 
   componentDidMount() {
-    this.increase();
-    this.timer = setInterval(() => this.increase(), 3000);
+    // this.increase();
+    // this.timer = setInterval(() => this.increase(), 3000);
 
-    // this.fetchSomethingAPI();
+    this.fetchSomethingAPI();
+
     console.log('componentDidMount called.');
   }
 
@@ -41,6 +45,14 @@ class CustomComponent extends Component {
 
   shouldComponentUpdate(nextProp, nextState) {
     console.log('shouldComponentUpdate called.');
+    console.log(`nextProp:`);
+    console.log(nextProp);
+    console.log(`prop:`);
+    console.log(this.prop);
+    console.log(`nextState:`);
+    console.log(nextState);
+    console.log(`state:`);
+    console.log(this.state);
     return true;
   }
 
@@ -54,7 +66,8 @@ class CustomComponent extends Component {
   }
 
   componentWillUnmount() {
-    clearInterval(this.timer);
+    this.timer && clearInterval(this.timer);
+    this.timer && clearTimeout(this.timer);
     this.timer = null;
     console.log('componentWillUnmount called.');
   }
@@ -64,7 +77,17 @@ class CustomComponent extends Component {
   }
 
   render() {
-    console.log('render() is rendering...');
+    console.log(`render() is rendering...${this.state.isFetching}`);
+    if (this.state.isFetching) {
+      return (
+        <View style={{justifyContent: 'center', alignItems: 'center'}}>
+          <ActivityIndicator size="large" color="#0000ff" />
+          <Text>Language is: {this.props.name}</Text>
+          <Text>Counter is at: {this.state.counter}</Text>
+        </View>
+      );
+    }
+
     return (
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text>Language is: {this.props.name}</Text>
