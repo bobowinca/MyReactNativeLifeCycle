@@ -9,7 +9,7 @@ import React from 'react';
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
 
-// jest.mock('../App.js');  // mock module
+// jest.mock('../App.js'); // mock module
 const App = jest.fn(() => <React.Fragment />); //mock function
 
 it('renders correctly', () => {
