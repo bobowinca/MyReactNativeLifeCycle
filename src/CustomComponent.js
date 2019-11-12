@@ -1,6 +1,7 @@
 /*Example of Reac Native Life Cycle*/
 import React, {Component} from 'react';
 import {Text, View, ActivityIndicator} from 'react-native';
+import Button from './Button';
 
 class CustomComponent extends Component {
   constructor(props) {
@@ -92,6 +93,7 @@ class CustomComponent extends Component {
       <View style={{justifyContent: 'center', alignItems: 'center'}}>
         <Text>Language is: {this.props.name}</Text>
         <Text>Counter is at: {this.state.counter}</Text>
+        <Button onPress={() => {}} label={'click.click'} />
       </View>
     );
   }
